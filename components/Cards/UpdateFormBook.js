@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 // components
 
 export default function UpdateFormBook(bookId) {
-  const [inputs, setInputs] = useState({})
   const [data, setData] = useState({})
   
 
   const handleChange = (Event) => {
     const name = Event.target.name
     const value = Event.target.value
-    setInputs(values => ({...values, [name]: value}))
+    setData(values => ({...values, [name]: value}))
   }
 
     useEffect(() => {
@@ -23,29 +22,29 @@ export default function UpdateFormBook(bookId) {
     const bookName = data.name
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(data.n)
-    // try {
-    //   console.log(inputs)
-    //   const response = await fetch(`http://localhost:2224/api/book/update/`,{
-    //     method: 'POST',
-    //     headers:{
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(inputs)
-    //   })
-    //   const result = response.json()
-    //   if(response.ok) {
-    //     alert('Tạo sách thành công');
-    //     // window.location.href="/admin/book"
-    //   } else {
-    //     alert(result.message)
-    //   }
-    // }
-    // catch(error) {
-    //   console.log(error)
-    //   alert('Thêm mới sách không thành công' + error)
+    console.log(data)
+    try {
+      console.log(data)
+      const response = await fetch(`http://localhost:2224/api/book/update/${data._id}`,{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const result = response.json()
+      if(response.ok) {
+        alert('Update sách thành công');
+        // window.location.href="/admin/book"
+      } else {
+        alert(result.message)
+      }
+    }
+    catch(error) {
+      console.log(error)
+      alert('Thêm mới sách không thành công' + error)
 
-    // }
+    }
   
    
   }
@@ -73,9 +72,8 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue= {bookName}
                     name="name"
-                    value={inputs.name}
+                    value={data.name}
                     onChange={handleChange}
                   />
                 </div>
@@ -92,8 +90,7 @@ export default function UpdateFormBook(bookId) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     name="author"
-                    defaultValue={data.author}
-                    value={inputs.author}
+                    value={data.author}
                     onChange={handleChange}
                   />
                 </div>
@@ -108,7 +105,7 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="text"
                     name="language"
-                    value={inputs.language}
+                    value={data.language || ""}
                     onChange={handleChange}
                     defaultValue={data.language}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -125,7 +122,7 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="text"                  
                     name="publisher"
-                    value={inputs.publisher}
+                    value={data.publisher || ""}
                     onChange={handleChange}
                     defaultValue={data.publisher}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -146,8 +143,7 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="date"
                     name="publicationDate"
-                    defaultValue={data.publicationDate}
-                    value={inputs.publicationDate}
+                    value={data.publicationDate || ""}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -162,9 +158,8 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="number"
                     name="pages"
-                    value={inputs.pages}
+                    value={data.pages ||""}
                     onChange={handleChange}
-                    defaultValue={data.pages}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -181,9 +176,8 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="text"
                     name="size"
-                    value={inputs.size}
+                    value={data.size || ""}
                     onChange={handleChange}
-                    defaultValue={data.size}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>
@@ -198,9 +192,8 @@ export default function UpdateFormBook(bookId) {
                   <input
                     type="text"
                     name="description"
-                    value={inputs.description}
+                    value={data.description || ""}
                     onChange={handleChange}
-                    defaultValue={data.description}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
                 </div>

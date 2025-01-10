@@ -1,7 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 
-const NotificationDropdown = () => {
+export default function TableDropdown({data}) {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -15,6 +15,40 @@ const NotificationDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const handleDelete = async (data) => {
+    try {
+        console.log(data)
+        const response = await fetch(`http://localhost:2224/api/book/delete/${data._id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.ok) {
+            alert('Item deleted successfully');
+            window.location.reload();
+        } else {
+            alert('Failed to delete item');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error deleting item');
+    }
+  }
+
+
+  
+  const handleUpdate = async (data) => {
+    const id = data._id
+    window.location.href = `/admin/book/updateBook/${id}`
+    // const response = await fetch(``)
+    // function UpdateFormBook(data) {
+
+    // }
+
+
+  }
   return (
     <>
       <a
@@ -40,31 +74,26 @@ const NotificationDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={async () => {
+            await handleDelete(data)
+          }}
         >
-          Action
+          Xóa
         </a>
         <a
           href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={async () => {
+            await handleUpdate(data)
+          }}
         >
-          Another action
-        </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Something else here
+          Sửa
         </a>
       </div>
     </>
   );
 };
 
-export default NotificationDropdown;
+
