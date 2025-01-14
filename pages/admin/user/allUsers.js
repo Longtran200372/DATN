@@ -1,9 +1,8 @@
-'use client'
 import React from "react";
 
 // components
 
-import BookTable from "components/Cards/BookTable.js";
+import UserTable from "components/Cards/UserTable.js";
 
 // layout for page
 
@@ -14,7 +13,7 @@ export default function Tables() {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4 mt-11">
-          <BookTable color="dark" />
+          <UserTable color="dark" />
         </div>
       </div>
     </>

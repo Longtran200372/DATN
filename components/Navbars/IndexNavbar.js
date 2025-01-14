@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Logo from "public/img/logo-title.jpg"
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
@@ -10,12 +11,15 @@ export default function Navbar(props) {
     <nav className="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+          <img src = {Logo} >
+
+          </img>
           <Link
             
             href="/"
-            className="text-blueGray-700 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase">
+            className="text-blueGray-700 text-2xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase">
             
-              Notus NextJS
+              Mot Review
             
           </Link>
           <button
@@ -33,17 +37,6 @@ export default function Navbar(props) {
           }
           id="example-navbar-warning"
         >
-          <ul className="flex flex-col lg:flex-row list-none mr-auto">
-            <li className="flex items-center">
-              <a
-                className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-                href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/overview/notus?ref=nnjs-index-navbar"
-              >
-                <i className="text-blueGray-400 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                Docs
-              </a>
-            </li>
-          </ul>
           <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
             <li className="flex items-center">
               <IndexDropdown />

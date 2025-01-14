@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import UserTableDropdown from "components/Dropdowns/UserDropdown";
 
-export default function BookTable({ color }) {
-  const [books, setBooks] = useState([]);
+export default function UserTable({ color }) {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true)
-    fetch("http://localhost:2224/api/book/show")
+    fetch("http://localhost:2224/api/user/show/")
       .then(response => response.json())
-      .then(json => setBooks(json))
+      .then(json => setUsers(json))
       .finally(() => {
         setLoading(false)
       })
@@ -38,7 +39,7 @@ export default function BookTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Danh sách các cuốn sách
+                Users Tables
               </h3>
             </div>
           </div>
@@ -48,17 +49,6 @@ export default function BookTable({ color }) {
         <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
-              <th
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    (color === "light"
-                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
-                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
-                  }
-                >
-                  STT
-              </th>
-              
                 <th
                   className={
                     "pt-28 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -67,7 +57,7 @@ export default function BookTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Tiêu đề
+                  Username
                 </th>
                 <th
                   className={
@@ -77,7 +67,7 @@ export default function BookTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Tác giả
+                  Phone Number
                 </th>
                 <th
                   className={
@@ -87,9 +77,8 @@ export default function BookTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  NXB
+                  Address
                 </th>
-                
                 <th
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -98,7 +87,17 @@ export default function BookTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Ngôn ngữ
+                  Email
+                </th>
+                <th
+                  className={
+                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  Full Name
                 </th>
                 <th
                   className={
@@ -111,8 +110,8 @@ export default function BookTable({ color }) {
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(books) && books.map((book) => (
-              <tr key={book._id}>
+              {Array.isArray(users) && users.map((user) => (
+              <tr key={user._id}>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                   <span
                     className={
@@ -120,23 +119,23 @@ export default function BookTable({ color }) {
                       +(color === "light" ? "text-blueGray-600" : "text-white")
                     }
                   >
-                  {book.name}
+                  {user.username}
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {book.author}
+                  {user.phoneNumber}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {book.publisher}
+                  {user.address}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {book.rating}
+                  {user.email}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {book.language}
+                  {user.fullName}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                  <TableDropdown data={book}/>
+                  <TableDropdown data={user}/>
                 </td>
               </tr>
               ))}
@@ -150,14 +149,15 @@ export default function BookTable({ color }) {
 
 
 
+
     </>
   );
 }
 
-BookTable.defaultProps = {
+UserTable.defaultProps = {
   color: "light",
 };
 
-BookTable.propTypes = {
+UserTable.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

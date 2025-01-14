@@ -129,116 +129,7 @@ export default function Sidebar() {
                                   
               </Link>
             </li>
-
-            <li className="items-center">
-              <Link
-                href="/admin/maps"
-                className={
-                  "text-xs uppercase py-3 font-bold block " +
-                  (router.pathname.indexOf("/admin/maps") !== -1
-                    ? "text-lightBlue-500 hover:text-lightBlue-600"
-                    : "text-blueGray-700 hover:text-blueGray-500")
-                }>
-
-                <i
-                  className={
-                    "fas fa-map-marked mr-2 text-sm " +
-                    (router.pathname.indexOf("/admin/maps") !== -1
-                      ? "opacity-75"
-                      : "text-blueGray-300")
-                  }
-                ></i>{" "}Bài đăng
-                                  
-              </Link>
-            </li>
           </ul>
-
-          {/* Divider */}
-          <hr className="my-4 md:min-w-full" />
-          {/* Heading */}
-          <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-            Quản lý bình luận
-          </h6>
-          {/* Navigation */}
-
-          <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-            <li className="items-center">
-              <Link
-                href="/admin/reviewManagement"
-                className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
-
-                <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}Các bình luận được report
-                                  
-              </Link>
-            </li>
-
-            {/* <li className="items-center">
-              <Link  href="/auth/register">
-                <a
-                  href="#pablo"
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                >
-                  <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{" "}
-                  Register
-                </a>
-              </Link>
-            </li> */}
-          </ul>
-           {/* Divider */}
-           <hr className="my-4 md:min-w-full" />
-          {/* Heading */}
-          <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-            Quản lý chủ đề
-          </h6>
-          {/* Navigation */}
-
-          <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-          <li className="items-center">
-              <Link
-                href="/admin/createBook"
-                className={
-                  "text-xs uppercase py-3 font-bold block " +
-                  (router.pathname.indexOf("/admin/createBook") !== -1
-                    ? "text-lightBlue-500 hover:text-lightBlue-600"
-                    : "text-blueGray-700 hover:text-blueGray-500")
-                }>
-
-                <i
-                  className={
-                    "fas fa-tools mr-2 text-sm " +
-                    (router.pathname.indexOf("/admin/createBook") !== -1
-                      ? "opacity-75"
-                      : "text-blueGray-300")
-                  }
-                ></i>{" "}Thêm mới chủ đề
-                                  
-              </Link>
-            </li>
-
-            
-            <li className="items-center">
-              <Link
-                href="/admin/allBook"
-                className={
-                  "text-xs uppercase py-3 font-bold block " +
-                  (router.pathname.indexOf("/admin/allBook") !== -1
-                    ? "text-lightBlue-500 hover:text-lightBlue-600"
-                    : "text-blueGray-700 hover:text-blueGray-500")
-                }>
-
-                <i
-                  className={
-                    "fas fa-table mr-2 text-sm " +
-                    (router.pathname.indexOf("/admin/allBook") !== -1
-                      ? "opacity-75"
-                      : "text-blueGray-300")
-                  }
-                ></i>{" "}Danh sách chủ đề
-                                  
-              </Link>
-            </li>
-          </ul>
-
            {/* Divider */}
            <hr className="my-4 md:min-w-full" />
           {/* Heading */}
@@ -271,10 +162,10 @@ export default function Sidebar() {
             
             <li className="items-center">
               <Link
-                href="/admin/allUser"
+                href="/admin/user/allUsers"
                 className={
                   "text-xs uppercase py-3 font-bold block " +
-                  (router.pathname.indexOf("/admin/allUser") !== -1
+                  (router.pathname.indexOf("/admin/user/allUsers") !== -1
                     ? "text-lightBlue-500 hover:text-lightBlue-600"
                     : "text-blueGray-700 hover:text-blueGray-500")
                 }>
@@ -282,7 +173,7 @@ export default function Sidebar() {
                 <i
                   className={
                     "fas fa-table mr-2 text-sm " +
-                    (router.pathname.indexOf("/admin/allUser") !== -1
+                    (router.pathname.indexOf("/admin/user/allUsers") !== -1
                       ? "opacity-75"
                       : "text-blueGray-300")
                   }
