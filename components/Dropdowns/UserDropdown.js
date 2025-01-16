@@ -18,8 +18,8 @@ export default function TableDropdown({data}) {
 
   const handleDelete = async (data) => {
     try {
-        console.log(data)
-        const response = await fetch(`http://localhost:2224/api/book/delete/${data._id}`, {
+        console.log(data._id)
+        const response = await fetch(`http://localhost:2224/api/user/delete/${data._id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export default function TableDropdown({data}) {
             alert('Item deleted successfully');
             window.location.reload();
         } else {
-            alert('Failed to delete item');
+            alert('Failed to delete item:' + response);
         }
     } catch (error) {
         console.error('Error:', error);
@@ -41,7 +41,7 @@ export default function TableDropdown({data}) {
   
   const handleUpdate = async (data) => {
     const id = data._id
-    window.location.href = `/admin/book/updateBook/${id}`
+    window.location.href = `/admin/user/updateUser/${id}`
     // const response = await fetch(``)
     // function UpdateFormBook(data) {
 

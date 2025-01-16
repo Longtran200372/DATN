@@ -4,33 +4,34 @@ import PropTypes from "prop-types";
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
-import UserTableDropdown from "components/Dropdowns/UserDropdown";
+import UserDropdown from "components/Dropdowns/UserDropdown";
 
 export default function UserTable({ color }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetch("http://localhost:2224/api/user/show/")
-      .then(response => response.json())
-      .then(json => setUsers(json))
+      .then((response) => response.json())
+      .then((json) => setUsers(json))
       .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+        setLoading(false);
+      });
+  }, []);
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
   return (
     <>
-       <div
+      <div
         className={
           "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " +
           (color === "light" ? "bg-white" : "bg-blueGray-700 text-white")
-        }>
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
+        }
+      >
+        <div className="rounded-t mb-0 px-4 py-3 border-0 mt-20">
           <div className="flex flex-wrap items-center">
             <div className="relative w-full px-4 max-w-full flex-grow flex-1">
               <h3
@@ -39,16 +40,26 @@ export default function UserTable({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Users Tables
+                Danh sách người dùng
               </h3>
             </div>
           </div>
         </div>
         <div className="block w-full overflow-x-auto mt-10">
-        {/* Projects table */}
-        <table className="items-center w-full bg-transparent border-collapse">
+          {/* Projects table */}
+          <table className="items-center w-full bg-transparent border-collapse">
             <thead>
               <tr>
+                <th
+                  className={
+                    "pt-28 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left w-6 " +
+                    (color === "light"
+                      ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                      : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
+                  }
+                >
+                  STT
+                </th>
                 <th
                   className={
                     "pt-28 px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -67,7 +78,7 @@ export default function UserTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Phone Number
+                  SĐT
                 </th>
                 <th
                   className={
@@ -77,7 +88,7 @@ export default function UserTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Address
+                  Địa chỉ
                 </th>
                 <th
                   className={
@@ -97,7 +108,7 @@ export default function UserTable({ color }) {
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
                 >
-                  Full Name
+                  Họ và tên
                 </th>
                 <th
                   className={
@@ -106,50 +117,51 @@ export default function UserTable({ color }) {
                       ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                       : "bg-blueGray-600 text-blueGray-200 border-blueGray-500")
                   }
-                ></th>
+                >
+                  Hành động
+                </th>
               </tr>
             </thead>
             <tbody>
-              {Array.isArray(users) && users.map((user) => (
-              <tr key={user._id}>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <span
-                    className={
-                      "ml-3 font-bold " +
-                      +(color === "light" ? "text-blueGray-600" : "text-white")
-                    }
-                  >
-                  {user.username}
-                  </span>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {user.phoneNumber}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {user.address}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {user.email}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {user.fullName}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                  <TableDropdown data={user}/>
-                </td>
-              </tr>
-              ))}
+              {Array.isArray(users) &&
+                users.map((user, index) => (
+                  <tr key={user._id}>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {index +1}
+                    </td>
+                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                      <span
+                        className={
+                          "ml-3 font-bold " +
+                          +(color === "light"
+                            ? "text-blueGray-600"
+                            : "text-white")
+                        }
+                      >
+                        {user.username}
+                      </span>
+                    </th>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {user.phoneNumber}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {user.address}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {user.email}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      {user.fullName}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
+                      <UserDropdown data={user} />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
-      </div> 
-
-
-
-
-
-
-
+      </div>
     </>
   );
 }

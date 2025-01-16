@@ -139,10 +139,10 @@ export default function Sidebar() {
           <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
           <li className="items-center">
               <Link
-                href="/admin/userManager"
+                href="/admin/user/createUser"
                 className={
                   "text-xs uppercase py-3 font-bold block " +
-                  (router.pathname.indexOf("/admin/userManager") !== -1
+                  (router.pathname.indexOf("/admin/user/createUser") !== -1
                     ? "text-lightBlue-500 hover:text-lightBlue-600"
                     : "text-blueGray-700 hover:text-blueGray-500")
                 }>
@@ -150,11 +150,11 @@ export default function Sidebar() {
                 <i
                   className={
                     "fas fa-tools mr-2 text-sm " +
-                    (router.pathname.indexOf("/admin/userManager") !== -1
+                    (router.pathname.indexOf("/admin/user/createUser") !== -1
                       ? "opacity-75"
                       : "text-blueGray-300")
                   }
-                ></i>{" "}Quản lý người dùng
+                ></i>{" "}Thêm người dùng
                                   
               </Link>
             </li>

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 // components
 
-export default function CreateFormBook() {
+export default function CreateFormUser() {
   const [inputs, setInputs] = useState({});
-  const [, setData] = useState({});
-
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const handleChange = (Event) => {
     const name = Event.target.name;
     const value = Event.target.value;
@@ -15,23 +15,25 @@ export default function CreateFormBook() {
     event.preventDefault();
     try {
       console.log(inputs);
-      const response = await fetch(`http://localhost:2224/api/book/create`, {
+      const response = await fetch(`http://localhost:2224/api/user/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(inputs),
       });
-      const result = response.json();
       if (response.ok) {
-        alert("Tạo sách thành công");
-        // window.location.href="/admin/book"
+        const data = await response.json();
+        setMessage(data.message); // Hiển thị thông báo thành công
+        setError("");
       } else {
-        alert(result.message);
+        const errorData = await response.json();
+        setError(errorData.message || "Something went wrong"); // Hiển thị lỗi từ API
+        setMessage("");
       }
-    } catch (error) {
-      console.log(error);
-      alert("Thêm mới sách không thành công", error);
+    } catch (err) {
+      setError("An unexpected error occurred."); // Lỗi kết nối hoặc server
+      setMessage("");
     }
   };
   return (
@@ -40,7 +42,7 @@ export default function CreateFormBook() {
         <div className="rounded-t bg-white mb-0 px-6 py-6 mt-20">
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-700 text-xl font-bold">
-              Thêm sách mới
+              Thêm người dùng mới
             </h6>
           </div>
         </div>
@@ -53,13 +55,13 @@ export default function CreateFormBook() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Tên sách
+                    Username
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    name="name"
-                    value={inputs.name}
+                    name="username"
+                    value={inputs.username}
                     onChange={handleChange}
                   />
                 </div>
@@ -67,13 +69,13 @@ export default function CreateFormBook() {
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                    Tác giả
+                    Password
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    name="author"
-                    value={inputs.author}
+                    name="password"
+                    value={inputs.password}
                     onChange={handleChange}
                   />
                 </div>
@@ -81,12 +83,12 @@ export default function CreateFormBook() {
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                    Ngôn ngữ
+                    Email
                   </label>
                   <input
                     type="text"
-                    name="language"
-                    value={inputs.language}
+                    name="email"
+                    value={inputs.email}
                     onChange={handleChange}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
@@ -95,12 +97,12 @@ export default function CreateFormBook() {
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                    Nhà xuất bản
+                    Địa chỉ
                   </label>
                   <input
                     type="text"
-                    name="publisher"
-                    value={inputs.publisher}
+                    name="address"
+                    value={inputs.address}
                     onChange={handleChange}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   />
@@ -115,119 +117,28 @@ export default function CreateFormBook() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Ngày xuất bản
+                    Họ và tên
                   </label>
                   <input
-                    type="date"
-                    name="publicationDate"
-                    value={inputs.publicationDate}
+                    type="string"
+                    name="fullName"
+                    value={inputs.fullName}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    onChange={handleChange}
                   />
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative w-full mb-3">
                   <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2 ">
-                    Số trang
+                    SĐT
                   </label>
                   <input
-                    type="number"
-                    name="pages"
-                    value={inputs.pages}
+                    type="string"
+                    name="phoneNumber"
+                    value={inputs.phoneNumber}
                     onChange={handleChange}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  />
-                </div>
-              </div>
-
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Kích cỡ
-                  </label>
-                  <input
-                    type="text"
-                    name="size"
-                    value={inputs.size}
-                    onChange={handleChange}
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  />
-                </div>
-              </div>
-              <div className="w-full px-4">
-                <div className="relative w-full mb-3">
-                  <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                    Thông tin về sách
-                  </label>
-                  <Editor
-                    apiKey="lm7il6unnjnaiuocplhwzhjxgmtc7imziryl44utj77lx78o"
-                    onEditorChange={(editedValue) => {
-                      console.log(editedValue)
-                      setInputs({...inputs, description: editedValue})
-                     }}
-                     value={inputs.description}
-                    init={{
-                      plugins: [
-                        // Core editing features
-                        "anchor",
-                        "autolink",
-                        "charmap",
-                        "codesample",
-                        "emoticons",
-                        "image",
-                        "link",
-                        "lists",
-                        "media",
-                        "searchreplace",
-                        "table",
-                        "visualblocks",
-                        "wordcount",
-                        // Your account includes a free trial of TinyMCE premium features
-                        // Try the most popular premium features until Jan 28, 2025:
-                        "checklist",
-                        "mediaembed",
-                        "casechange",
-                        "export",
-                        "formatpainter",
-                        "pageembed",
-                        "a11ychecker",
-                        "tinymcespellchecker",
-                        "permanentpen",
-                        "powerpaste",
-                        "advtable",
-                        "advcode",
-                        "editimage",
-                        "advtemplate",
-                        "ai",
-                        "mentions",
-                        "tinycomments",
-                        "tableofcontents",
-                        "footnotes",
-                        "mergetags",
-                        "autocorrect",
-                        "typography",
-                        "inlinecss",
-                        "markdown",
-                        "importword",
-                        "exportword",
-                        "exportpdf",
-                      ],
-                      toolbar:
-                        "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                      tinycomments_mode: "embedded",
-                      tinycomments_author: "Author name",
-                      mergetags_list: [
-                        { value: "First.Name", title: "First Name" },
-                        { value: "Email", title: "Email" },
-                      ],
-                      ai_request: (request, respondWith) =>
-                        respondWith.string(() =>
-                          Promise.reject("See docs to implement AI Assistant")
-                        ),
-                    }}
                   />
                 </div>
               </div>
@@ -237,7 +148,7 @@ export default function CreateFormBook() {
                   className=" bg-blueGray-700 active:bg-blueGray-600 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit"
                 >
-                  Tạo sách
+                  Thêm người dùng mới
                 </button>
               </div>
             </div>
@@ -260,6 +171,8 @@ export default function CreateFormBook() {
               </div>
             </div> */}
           </form>
+          {message && <p className="message">{message}</p>}
+          {error && <p className="error">{error}</p>}
         </div>
       </div>
     </>
